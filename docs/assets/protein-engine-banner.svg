@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+    <linearGradient id="helix1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#3a7bd5"/>
+    </linearGradient>
+    <linearGradient id="helix2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f857a6"/>
+      <stop offset="100%" style="stop-color:#ff5858"/>
+    </linearGradient>
+    <linearGradient id="quantum" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#11998e"/>
+      <stop offset="100%" style="stop-color:#38ef7d"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="200" rx="12" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.05" stroke="#ffffff" stroke-width="0.5">
+    <line x1="0" y1="40" x2="720" y2="40"/>
+    <line x1="0" y1="80" x2="720" y2="80"/>
+    <line x1="0" y1="120" x2="720" y2="120"/>
+    <line x1="0" y1="160" x2="720" y2="160"/>
+    <line x1="120" y1="0" x2="120" y2="200"/>
+    <line x1="240" y1="0" x2="240" y2="200"/>
+    <line x1="360" y1="0" x2="360" y2="200"/>
+    <line x1="480" y1="0" x2="480" y2="200"/>
+    <line x1="600" y1="0" x2="600" y2="200"/>
+  </g>
+
+  <!-- DNA Double Helix (left side) -->
+  <g transform="translate(80, 100)" filter="url(#glow)">
+    <!-- Strand 1 -->
+    <path d="M-40,-60 C-20,-50 20,-30 40,-20 C60,-10 60,10 40,20 C20,30 -20,50 -40,60"
+          fill="none" stroke="url(#helix1)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Strand 2 -->
+    <path d="M40,-60 C20,-50 -20,-30 -40,-20 C-60,-10 -60,10 -40,20 C-20,30 20,50 40,60"
+          fill="none" stroke="url(#helix2)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Base pairs -->
+    <g stroke="#ffffff" stroke-width="1.5" opacity="0.4">
+      <line x1="-25" y1="-45" x2="25" y2="-45"/>
+      <line x1="-35" y1="-25" x2="35" y2="-25"/>
+      <line x1="-30" y1="-5" x2="30" y2="-5"/>
+      <line x1="-30" y1="15" x2="30" y2="15"/>
+      <line x1="-25" y1="35" x2="25" y2="35"/>
+      <line x1="-15" y1="55" x2="15" y2="55"/>
+    </g>
+    <!-- Nodes on helix -->
+    <circle cx="-25" cy="-45" r="3" fill="#00d2ff" opacity="0.9"/>
+    <circle cx="25" cy="-45" r="3" fill="#f857a6" opacity="0.9"/>
+    <circle cx="-35" cy="-25" r="3" fill="#00d2ff" opacity="0.9"/>
+    <circle cx="35" cy="-25" r="3" fill="#f857a6" opacity="0.9"/>
+    <circle cx="-30" cy="-5" r="3" fill="#00d2ff" opacity="0.9"/>
+    <circle cx="30" cy="-5" r="3" fill="#f857a6" opacity="0.9"/>
+    <circle cx="-30" cy="15" r="3" fill="#00d2ff" opacity="0.9"/>
+    <circle cx="30" cy="15" r="3" fill="#f857a6" opacity="0.9"/>
+    <circle cx="-25" cy="35" r="3" fill="#00d2ff" opacity="0.9"/>
+    <circle cx="25" cy="35" r="3" fill="#f857a6" opacity="0.9"/>
+  </g>
+
+  <!-- Quantum circuit (right side) -->
+  <g transform="translate(600, 100)" filter="url(#glow)" opacity="0.7">
+    <!-- Qubit lines -->
+    <line x1="-60" y1="-40" x2="60" y2="-40" stroke="#38ef7d" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-60" y1="-10" x2="60" y2="-10" stroke="#38ef7d" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-60" y1="20" x2="60" y2="20" stroke="#38ef7d" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-60" y1="50" x2="60" y2="50" stroke="#38ef7d" stroke-width="1.5" opacity="0.6"/>
+    <!-- Gates -->
+    <rect x="-45" y="-50" width="20" height="20" rx="3" fill="none" stroke="#38ef7d" stroke-width="1.5"/>
+    <text x="-35" y="-36" font-family="monospace" font-size="10" fill="#38ef7d" text-anchor="middle">H</text>
+    <rect x="-10" y="-20" width="20" height="20" rx="3" fill="none" stroke="#38ef7d" stroke-width="1.5"/>
+    <text x="0" y="-6" font-family="monospace" font-size="10" fill="#38ef7d" text-anchor="middle">X</text>
+    <rect x="25" y="10" width="20" height="20" rx="3" fill="none" stroke="#38ef7d" stroke-width="1.5"/>
+    <text x="35" y="24" font-family="monospace" font-size="10" fill="#38ef7d" text-anchor="middle">R</text>
+    <!-- CNOT connections -->
+    <line x1="-35" y1="-30" x2="-35" y2="-10" stroke="#38ef7d" stroke-width="1" stroke-dasharray="3,2"/>
+    <circle cx="-35" cy="-10" r="3" fill="#38ef7d"/>
+    <line x1="0" y1="0" x2="0" y2="20" stroke="#38ef7d" stroke-width="1" stroke-dasharray="3,2"/>
+    <circle cx="0" cy="20" r="3" fill="#38ef7d"/>
+    <!-- Measurement -->
+    <rect x="35" y="40" width="20" height="20" rx="3" fill="none" stroke="#38ef7d" stroke-width="1.5"/>
+    <path d="M40,55 Q45,47 50,55" fill="none" stroke="#38ef7d" stroke-width="1"/>
+    <line x1="45" y1="50" x2="48" y2="44" stroke="#38ef7d" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <text x="360" y="78" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-weight="700"
+        font-size="42" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5" filter="url(#softGlow)">
+    Protein Engine
+  </text>
+
+  <!-- Tagline -->
+  <text x="360" y="110" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-weight="300"
+        font-size="14" fill="#a0a0c0" text-anchor="middle" letter-spacing="3">
+    AI-NATIVE  ·  QUANTUM-AWARE  ·  DISTRIBUTED
+  </text>
+
+  <!-- Tech badges row -->
+  <g transform="translate(360, 145)" font-family="monospace" font-size="10">
+    <!-- Rust badge -->
+    <rect x="-175" y="-10" width="60" height="20" rx="10" fill="#ffffff" fill-opacity="0.08" stroke="#ff6b35" stroke-width="1" opacity="0.8"/>
+    <text x="-145" y="4" fill="#ff6b35" text-anchor="middle" opacity="0.9">Rust</text>
+    <!-- WASM badge -->
+    <rect x="-100" y="-10" width="60" height="20" rx="10" fill="#ffffff" fill-opacity="0.08" stroke="#654ff0" stroke-width="1" opacity="0.8"/>
+    <text x="-70" y="4" fill="#654ff0" text-anchor="middle" opacity="0.9">WASM</text>
+    <!-- Quantum badge -->
+    <rect x="-25" y="-10" width="70" height="20" rx="10" fill="#ffffff" fill-opacity="0.08" stroke="#38ef7d" stroke-width="1" opacity="0.8"/>
+    <text x="10" y="4" fill="#38ef7d" text-anchor="middle" opacity="0.9">Quantum</text>
+    <!-- PQ Crypto badge -->
+    <rect x="60" y="-10" width="75" height="20" rx="10" fill="#ffffff" fill-opacity="0.08" stroke="#f857a6" stroke-width="1" opacity="0.8"/>
+    <text x="97" y="4" fill="#f857a6" text-anchor="middle" opacity="0.9">PQ Crypto</text>
+    <!-- Docker badge -->
+    <rect x="150" y="-10" width="65" height="20" rx="10" fill="#ffffff" fill-opacity="0.08" stroke="#00d2ff" stroke-width="1" opacity="0.8"/>
+    <text x="182" y="4" fill="#00d2ff" text-anchor="middle" opacity="0.9">Docker</text>
+  </g>
+
+  <!-- Decorative particles -->
+  <g opacity="0.3">
+    <circle cx="160" cy="30" r="1.5" fill="#00d2ff"/>
+    <circle cx="200" cy="170" r="1" fill="#f857a6"/>
+    <circle cx="520" cy="25" r="1.5" fill="#38ef7d"/>
+    <circle cx="550" cy="175" r="1" fill="#654ff0"/>
+    <circle cx="300" cy="180" r="1" fill="#ff6b35"/>
+    <circle cx="450" cy="20" r="1.5" fill="#f857a6"/>
+    <circle cx="680" cy="60" r="1" fill="#00d2ff"/>
+    <circle cx="30" cy="90" r="1" fill="#38ef7d"/>
+  </g>
+</svg>
