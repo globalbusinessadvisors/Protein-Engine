@@ -248,11 +248,22 @@ make clean             # Remove build artifacts
 ```
 Protein-Engine/
 ├── crates/                    # 16 Rust workspace crates
-│   ├── pe-core/               # Foundation types and traits
-│   ├── pe-cli/                # CLI binary
-│   ├── pe-api/                # HTTP server
-│   ├── pe-wasm/               # WASM bindings
-│   └── ...                    # See crate map above
+│   ├── pe-core/               #   Foundation types, traits, amino acid codec
+│   ├── pe-vector/             #   In-memory vector store, cosine similarity
+│   ├── pe-neural/             #   Candle transformer embeddings
+│   ├── pe-swarm/              #   Genetic algorithm engine
+│   ├── pe-quantum/            #   VQE/QAOA quantum solvers (native)
+│   ├── pe-quantum-wasm/       #   WASM-compatible quantum solver
+│   ├── pe-chemistry/          #   pyChemiQ sidecar HTTP bridge
+│   ├── pe-ledger/             #   Post-quantum signed hash chain
+│   ├── pe-governance/         #   Policy engine for safety gates
+│   ├── pe-stream/             #   Async event bus
+│   ├── pe-solver/             #   SAFLA closed-loop coordinator
+│   ├── pe-rvf/                #   Ruvector File builder/reader
+│   ├── pe-api/                #   Axum HTTP server
+│   ├── pe-wasm/               #   wasm-bindgen browser exports
+│   ├── pe-cli/                #   Clap CLI binary
+│   └── pe-integration-tests/  #   Cross-crate integration tests
 ├── services/
 │   └── chemiq-sidecar/        # Python quantum chemistry bridge
 ├── docker/                    # Dockerfiles
