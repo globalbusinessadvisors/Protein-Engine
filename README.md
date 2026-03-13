@@ -5,7 +5,8 @@
 <h1 align="center">Protein Engine</h1>
 
 <p align="center">
-  <strong>AI-native, quantum-aware, distributed protein engineering platform</strong>
+  <strong>AI-native, quantum-aware protein engineering platform</strong><br/>
+  <sub>Feed it sequences. It finds better ones.</sub>
 </p>
 
 <p align="center">
@@ -31,20 +32,23 @@
 
 ---
 
-Protein Engine is a modular Rust workspace that implements the full **SAFLA closed loop** for computational protein design: generate candidate sequences, score them with neural embeddings, validate through quantum chemistry simulation, screen with evolutionary algorithms, log every mutation on a post-quantum-signed ledger, and package results into a universal deployment artifact.
+Protein Engine is a computational protein design platform written in Rust. You give it amino acid sequences and it finds better ones through iterative optimization — scoring candidates with neural networks, evolving populations with genetic algorithms, validating stability with quantum chemistry, and logging every mutation to a tamper-proof ledger. The best variants from each generation seed the next cycle until you have candidates worth taking to the wet lab.
 
-It compiles to a native CLI, a Docker stack, a browser-ready WASM module, and an MCP server for Claude Code — all from the same codebase.
+It implements the **SAFLA (Self-Amplifying Feedback Loop Architecture)** closed loop across a modular 16-crate Rust workspace, and compiles to a native CLI, a Docker stack, a browser-ready WASM module, and an MCP server for Claude Code — all from the same codebase.
 
-## Key Features
+## What It Does
 
-- **Neural scoring** — Candle-backed transformer embeddings score sequences for reprogramming efficiency, expression stability, structural plausibility, and safety
-- **Quantum simulation** — Local VQE and QAOA solvers for molecular ground-state energy estimation; optional sidecar for pyChemiQ hardware backends
-- **Evolutionary optimization** — Configurable genetic algorithm with tournament selection, crossover, and mutation across populations of protein variants
-- **Post-quantum ledger** — Every mutation is cryptographically signed with ML-DSA-65, hash-chained, and serialized to tamper-evident journal segments
-- **Vector similarity search** — In-memory embedding store with cosine-similarity nearest-neighbor retrieval
-- **Universal artifact format** — RVF (Ruvector File) packages binary, WASM, manifest, ledger, and governance policy into a single distributable file
-- **Governance & policy** — Rule-based safety gates that enforce fitness thresholds and safety scores before variants are promoted
-- **Cross-platform** — Native (x86_64, aarch64), WASM (browser), Docker, Raspberry Pi
+**In plain terms:** you give it protein sequences, it tells you which ones are most likely to work and iteratively breeds better ones.
+
+**Under the hood:**
+
+- **Neural scoring** — Candle-backed transformer embeddings score sequences across four fitness dimensions: reprogramming efficiency, expression stability, structural plausibility, and safety. A cosine-similarity vector store enables nearest-neighbor search against previously scored variants.
+- **Evolutionary optimization** — A configurable genetic algorithm runs tournament selection, single-point crossover, and point mutation across populations of protein variants. Top performers survive; the rest are replaced.
+- **Quantum simulation** — VQE (Variational Quantum Eigensolver) estimates molecular ground-state energy to confirm physical stability. QAOA (Quantum Approximate Optimization Algorithm) handles combinatorial optimization. Local Rust solvers run natively; a Python sidecar bridges to pyChemiQ for real quantum hardware.
+- **Safety governance** — Rule-based policies enforce fitness and safety thresholds. Variants that don't meet the bar are rejected before promotion, not after.
+- **Post-quantum audit trail** — Every mutation is cryptographically signed with ML-DSA-65 (FIPS 204), hash-chained with SHA-3, and serialized to tamper-evident journal segments. If anyone alters a record, the chain breaks.
+- **Universal packaging** — RVF (Ruvector File) bundles the binary, WASM module, manifest, ledger, and governance config into a single deployable artifact with integrity verification.
+- **Cross-platform** — Runs on x86_64, aarch64 (Raspberry Pi), browsers (WASM), and Docker. Same codebase, different compile targets.
 
 ## Architecture
 
@@ -302,30 +306,37 @@ The CI runs 11 jobs on every push and pull request:
 | `native` | Enables Candle ML inference, pqcrypto ML-DSA-65, Tokio async runtime |
 | `wasm` | Enables wasm-bindgen exports, browser-compatible quantum solver |
 
-## The SAFLA Loop
+## How the Optimization Loop Works
 
-Protein Engine implements the **SAFLA (Self-Amplifying Feedback Loop Architecture)** closed loop:
+Each generation runs through six stages. The output feeds back into the next cycle — better variants in, better variants out.
 
 ```
   ┌─── Design ◄──────────────────────────────────────────┐
   │       │                                               │
+  │       │  Generate or mutate candidate sequences       │
   │       ▼                                               │
-  │     Score ──► Neural embeddings assess fitness        │
-  │       │                                               │
+  │     Score ─── pe-neural, pe-vector                    │
+  │       │       Transformer embeddings → fitness on     │
+  │       │       4 dimensions; store in vector index     │
   │       ▼                                               │
-  │   Validate ──► Quantum chemistry confirms energy     │
-  │       │                                               │
+  │   Validate ── pe-quantum, pe-chemistry                │
+  │       │       VQE/QAOA confirm the molecule is        │
+  │       │       physically stable                       │
   │       ▼                                               │
-  │    Screen ──► Governance policies gate promotion      │
-  │       │                                               │
+  │    Screen ─── pe-governance                           │
+  │       │       Policy engine checks safety and         │
+  │       │       fitness thresholds                      │
   │       ▼                                               │
-  │      Log ──► Post-quantum signed ledger entry         │
-  │       │                                               │
+  │      Log ──── pe-ledger                               │
+  │       │       ML-DSA-65 signature → SHA-3 hash        │
+  │       │       chain → journal segment                 │
   │       ▼                                               │
-  └── Promote ──► Top variants seed next generation ──────┘
+  │   Promote ─── pe-swarm, pe-solver                     │
+  │               Top variants seed next generation;      │
+  └───────────────── SAFLA coordinator loops back ────────┘
 ```
 
-Each cycle produces better protein candidates while maintaining a cryptographically verifiable audit trail.
+After enough generations, the top-scoring variants that pass all gates are your candidates for wet-lab synthesis. The ledger provides a cryptographically verifiable audit trail of every mutation that was tried, scored, and either promoted or rejected.
 
 ## License
 
