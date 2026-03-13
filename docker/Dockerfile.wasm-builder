@@ -1,0 +1,17 @@
+# WASM build container — produces browser-ready pkg/
+FROM rust:1.82-bookworm
+
+RUN rustup target add wasm32-unknown-unknown && \
+    cargo install wasm-pack
+
+WORKDIR /build
+
+COPY Cargo.toml Cargo.lock ./
+COPY .cargo/ .cargo/
+COPY crates/ crates/
+
+WORKDIR /build/crates/pe-wasm
+
+RUN wasm-pack build --target web --release --out-dir /output
+
+CMD ["echo", "WASM build complete — output in /output"]

@@ -1,0 +1,29 @@
+[package]
+name        = "pe-vector"
+version.workspace     = true
+edition.workspace     = true
+license.workspace     = true
+authors.workspace     = true
+repository.workspace  = true
+description = "Vector storage and embedding management for protein sequences"
+
+[dependencies]
+pe-core    = { workspace = true }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+uuid       = { workspace = true }
+thiserror  = { workspace = true }
+anyhow     = { workspace = true }
+ndarray    = { workspace = true }
+tracing    = { workspace = true }
+
+# native-only
+rayon = { workspace = true, optional = true }
+
+[dev-dependencies]
+mockall = { workspace = true }
+
+[features]
+default = ["native"]
+native  = ["dep:rayon"]
+wasm    = []

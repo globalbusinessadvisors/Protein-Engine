@@ -1,0 +1,18 @@
+[package]
+name = "pe-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Universal domain types for the Protein-Engine platform (no_std compatible)"
+
+[dependencies]
+serde = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+num-complex = { workspace = true }
+
+[dev-dependencies]
+mockall = { workspace = true }

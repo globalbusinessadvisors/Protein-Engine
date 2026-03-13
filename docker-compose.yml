@@ -1,0 +1,30 @@
+services:
+  protein-engine:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+    ports:
+      - "8080:8080"
+    environment:
+      - CHEMIQ_URL=http://chemiq-sidecar:8100
+      - RUST_LOG=info
+    volumes:
+      - rvf-data:/home/appuser/data
+    depends_on:
+      chemiq-sidecar:
+        condition: service_healthy
+    restart: unless-stopped
+
+  chemiq-sidecar:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.chemiq
+    ports:
+      - "8100:8100"
+    environment:
+      - LOG_LEVEL=info
+    restart: unless-stopped
+
+volumes:
+  rvf-data:
+    driver: local

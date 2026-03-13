@@ -1,0 +1,51 @@
+[package]
+name = "pe-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Command-line interface for Protein-Engine"
+
+[lib]
+name = "pe_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "protein-engine"
+path = "src/main.rs"
+
+[features]
+default = ["native"]
+native  = []
+
+[dependencies]
+pe-core          = { workspace = true }
+pe-vector        = { workspace = true }
+pe-neural        = { workspace = true, features = ["native"] }
+pe-swarm         = { workspace = true }
+pe-quantum       = { workspace = true }
+pe-quantum-wasm  = { workspace = true }
+pe-ledger        = { workspace = true, features = ["native"] }
+pe-rvf           = { workspace = true }
+pe-stream        = { workspace = true }
+pe-governance    = { workspace = true }
+pe-api           = { workspace = true }
+
+axum               = { workspace = true }
+serde              = { workspace = true }
+serde_json         = { workspace = true }
+anyhow             = { workspace = true }
+thiserror          = { workspace = true }
+tokio              = { workspace = true }
+tracing            = { workspace = true }
+tracing-subscriber = { workspace = true }
+clap               = { workspace = true }
+uuid               = { workspace = true }
+chrono             = { workspace = true }
+rand               = { workspace = true }
+hex                = { workspace = true }
+async-trait        = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"

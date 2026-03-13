@@ -1,0 +1,133 @@
+{
+  "name": "protein-engine",
+  "version": "0.1.0",
+  "description": "Protein-Engine MCP server — AI-native protein engineering platform",
+  "tools": [
+    {
+      "name": "score_sequence",
+      "description": "Score an amino acid sequence for reprogramming fitness. Returns reprogramming_efficiency, expression_stability, structural_plausibility, safety_score, and composite.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "description": "Amino acid sequence (e.g. MAGHLASDFAFSPPPGGGGDGPGGPEPGWVD)"
+          }
+        },
+        "required": ["sequence"]
+      }
+    },
+    {
+      "name": "evolve",
+      "description": "Run directed evolution cycles on a seed sequence. Returns promoted variants with fitness scores per generation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "generations": {
+            "type": "integer",
+            "description": "Number of evolution generations to run",
+            "default": 1
+          },
+          "population_size": {
+            "type": "integer",
+            "description": "Number of variants per generation",
+            "default": 20
+          },
+          "seed_sequence": {
+            "type": "string",
+            "description": "Starting amino acid sequence",
+            "default": "ACDEFGHIKLMNPQRSTVWY"
+          },
+          "mutation_rate": {
+            "type": "number",
+            "description": "Probability of mutation per residue (0.0-1.0)",
+            "default": 0.3
+          },
+          "top_k": {
+            "type": "integer",
+            "description": "Number of top candidates to promote per generation",
+            "default": 5
+          }
+        }
+      }
+    },
+    {
+      "name": "search_similar",
+      "description": "Find protein sequences similar to the query in the vector store. Returns ranked list of (id, similarity) pairs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "description": "Query amino acid sequence"
+          },
+          "k": {
+            "type": "integer",
+            "description": "Number of nearest neighbors to return",
+            "default": 5
+          }
+        },
+        "required": ["sequence"]
+      }
+    },
+    {
+      "name": "quantum_vqe",
+      "description": "Run a Variational Quantum Eigensolver (VQE) calculation on a molecule. Returns ground state energy, optimal parameters, and convergence status.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "molecule": {
+            "type": "string",
+            "description": "Molecule identifier (e.g. H2, LiH)"
+          }
+        },
+        "required": ["molecule"]
+      }
+    },
+    {
+      "name": "ledger_verify",
+      "description": "Verify the integrity of the cryptographic journal chain. Returns whether the chain is valid and the number of entries.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "rvf_inspect",
+      "description": "Inspect an RVF file and return its manifest, segment listing, and capabilities.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to the .rvf file"
+          }
+        },
+        "required": ["path"]
+      }
+    },
+    {
+      "name": "create_variant",
+      "description": "Create a new protein variant, embed it, score it, and store it in the vector store. Returns the variant ID, fitness score, and embedding status.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable variant name"
+          },
+          "sequence": {
+            "type": "string",
+            "description": "Amino acid sequence"
+          },
+          "factor": {
+            "type": "string",
+            "description": "Yamanaka factor target (OCT4, SOX2, KLF4, CMYC)",
+            "enum": ["OCT4", "SOX2", "KLF4", "CMYC"]
+          }
+        },
+        "required": ["name", "sequence", "factor"]
+      }
+    }
+  ]
+}

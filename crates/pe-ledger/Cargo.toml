@@ -1,0 +1,30 @@
+[package]
+name        = "pe-ledger"
+version.workspace     = true
+edition.workspace     = true
+license.workspace     = true
+authors.workspace     = true
+repository.workspace  = true
+description = "Cryptographic append-only journal with hash chaining"
+
+[dependencies]
+pe-core         = { workspace = true }
+pe-rvf          = { workspace = true }
+serde           = { workspace = true }
+serde_json      = { workspace = true }
+sha3            = { workspace = true }
+thiserror       = { workspace = true }
+chrono          = { workspace = true }
+tracing         = { workspace = true }
+hex             = { workspace = true }
+pqcrypto-mldsa  = { workspace = true, optional = true }
+pqcrypto-traits = { workspace = true, optional = true }
+
+[dev-dependencies]
+mockall         = { workspace = true }
+pqcrypto-mldsa  = { workspace = true }
+pqcrypto-traits = { workspace = true }
+
+[features]
+default = ["native"]
+native  = ["pqcrypto-mldsa", "pqcrypto-traits"]

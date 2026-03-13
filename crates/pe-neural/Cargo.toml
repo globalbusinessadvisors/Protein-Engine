@@ -1,0 +1,30 @@
+[package]
+name        = "pe-neural"
+version.workspace     = true
+edition.workspace     = true
+license.workspace     = true
+authors.workspace     = true
+repository.workspace  = true
+description = "Neural fitness scoring ensemble for protein variants"
+
+[dependencies]
+pe-core     = { workspace = true }
+pe-rvf      = { workspace = true }
+serde       = { workspace = true }
+serde_json  = { workspace = true }
+thiserror   = { workspace = true }
+anyhow      = { workspace = true }
+tracing     = { workspace = true }
+
+# Heavy ML deps are optional until real model inference is wired up
+ndarray     = { workspace = true, optional = true }
+candle-core = { workspace = true, optional = true }
+candle-nn   = { workspace = true, optional = true }
+
+[dev-dependencies]
+mockall = { workspace = true }
+
+[features]
+default = ["native"]
+native  = ["dep:ndarray", "dep:candle-core", "dep:candle-nn"]
+wasm    = []

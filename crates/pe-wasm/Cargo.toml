@@ -1,0 +1,40 @@
+[package]
+name = "pe-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "WASM browser entry point for Protein-Engine"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["wasm"]
+wasm    = []
+
+[dependencies]
+pe-core          = { workspace = true }
+pe-vector        = { workspace = true }
+pe-neural        = { workspace = true, default-features = false, features = ["wasm"] }
+pe-quantum-wasm  = { workspace = true }
+pe-ledger        = { workspace = true, default-features = false }
+pe-rvf           = { workspace = true }
+
+serde            = { workspace = true }
+serde_json       = { workspace = true }
+thiserror        = { workspace = true }
+uuid             = { workspace = true }
+rand             = { workspace = true }
+
+# WASM-specific dependencies — always included since this crate is wasm-only
+wasm-bindgen             = { workspace = true }
+wasm-bindgen-futures     = { workspace = true }
+js-sys                   = { workspace = true }
+web-sys                  = { workspace = true }
+serde-wasm-bindgen       = { workspace = true }
+console_error_panic_hook = { workspace = true }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"

@@ -1,0 +1,26 @@
+[package]
+name = "pe-solver"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Sublinear-time sparse energy minimization solver"
+
+[features]
+default = ["native"]
+native = ["dep:rayon"]
+wasm = []
+
+[dependencies]
+pe-core = { workspace = true }
+pe-rvf  = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+rand = { workspace = true }
+rayon = { workspace = true, optional = true }
+
+[dev-dependencies]
+mockall = { workspace = true }

@@ -1,0 +1,12 @@
+# Core quantum chemistry (optional — simulator fallback if unavailable)
+pychemiq>=0.3
+pyqpanda3>=3.0
+pyqpanda_alg>=0.1
+
+# HTTP framework
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.0
+
+# Numpy is required for the simulator fallback
+numpy>=1.24

@@ -1,0 +1,138 @@
+[workspace]
+members = [
+    "crates/pe-core",
+    "crates/pe-vector",
+    "crates/pe-neural",
+    "crates/pe-swarm",
+    "crates/pe-quantum",
+    "crates/pe-quantum-wasm",
+    "crates/pe-chemistry",
+    "crates/pe-ledger",
+    "crates/pe-governance",
+    "crates/pe-stream",
+    "crates/pe-solver",
+    "crates/pe-rvf",
+    "crates/pe-api",
+    "crates/pe-wasm",
+    "crates/pe-cli",
+    "crates/pe-integration-tests",
+]
+resolver = "2"
+
+[workspace.package]
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT"
+authors     = ["Nick <nick@nicholasruest.com>", "rUv <ruv@ruv.io>"]
+repository  = "https://github.com/ruvnet/protein-engine"
+description = "AI-native, quantum-aware, distributed protein engineering platform"
+
+[workspace.dependencies]
+
+# ── internal crates ───────────────────────────────────────────────────────────
+pe-core          = { path = "crates/pe-core" }
+pe-vector        = { path = "crates/pe-vector" }
+pe-neural        = { path = "crates/pe-neural", default-features = false }
+pe-swarm         = { path = "crates/pe-swarm" }
+pe-quantum       = { path = "crates/pe-quantum" }
+pe-quantum-wasm  = { path = "crates/pe-quantum-wasm" }
+pe-chemistry     = { path = "crates/pe-chemistry" }
+pe-ledger        = { path = "crates/pe-ledger", default-features = false }
+pe-governance    = { path = "crates/pe-governance" }
+pe-stream        = { path = "crates/pe-stream" }
+pe-solver        = { path = "crates/pe-solver" }
+pe-rvf           = { path = "crates/pe-rvf" }
+pe-api           = { path = "crates/pe-api" }
+pe-wasm          = { path = "crates/pe-wasm" }
+pe-cli           = { path = "crates/pe-cli" }
+
+# ── bioinformatics ────────────────────────────────────────────────────────────
+# https://github.com/rust-bio/rust-bio  |  https://crates.io/crates/bio
+bio = "2"
+
+# ── ML inference ──────────────────────────────────────────────────────────────
+# https://github.com/huggingface/candle  |  https://crates.io/crates/candle-core
+candle-core         = "0.8"
+candle-nn           = "0.8"
+candle-transformers = "0.8"
+
+# ── numerics ──────────────────────────────────────────────────────────────────
+# https://crates.io/crates/ndarray
+ndarray = "0.16"
+
+# https://crates.io/crates/faer
+faer = { version = "0.19" }
+
+# https://crates.io/crates/num-complex
+num-complex = "0.4"
+
+# ── async + networking (native) ───────────────────────────────────────────────
+# https://crates.io/crates/tokio
+tokio = { version = "1", features = ["full"] }
+
+# https://crates.io/crates/axum
+axum = { version = "0.7" }
+
+# https://crates.io/crates/tower
+tower = { version = "0.5" }
+
+# https://crates.io/crates/tower-http
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+
+# https://crates.io/crates/reqwest
+reqwest = { version = "0.12", features = ["json", "stream"] }
+
+# ── WASM bindings ─────────────────────────────────────────────────────────────
+# https://github.com/rustwasm/wasm-bindgen  |  https://crates.io/crates/wasm-bindgen
+wasm-bindgen             = { version = "0.2" }
+wasm-bindgen-futures     = { version = "0.4" }
+js-sys                   = { version = "0.3" }
+web-sys                  = { version = "0.3", features = [
+    "Window", "console", "Request", "RequestInit",
+    "Response", "Headers", "AbortController",
+] }
+gloo-net                 = { version = "0.6" }
+serde-wasm-bindgen       = { version = "0.6" }
+console_error_panic_hook = { version = "0.1" }
+
+# ── post-quantum crypto ──────────────────────────────────────────────────────
+# https://crates.io/crates/sha3
+sha3 = "0.10"
+
+# https://crates.io/crates/pqcrypto-mldsa
+pqcrypto-mldsa  = "0.1"
+
+# https://crates.io/crates/pqcrypto-traits
+pqcrypto-traits = "0.3"
+
+# ── serialization / utilities ────────────────────────────────────────────────
+serde              = { version = "1", features = ["derive"] }
+serde_json         = "1"
+anyhow             = "1"
+thiserror          = "2"
+tracing            = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+uuid               = { version = "1", features = ["v4", "serde", "js"] }
+chrono             = { version = "0.4", features = ["serde"] }
+rayon              = { version = "1" }
+hex                = "0.4"
+async-trait        = "0.1"
+clap               = { version = "4", features = ["derive"] }
+mockall            = "0.13"
+rand               = "0.8"
+
+# ── release profile ──────────────────────────────────────────────────────────
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+
+[profile.release-wasm]
+inherits = "release"
+opt-level = "z"
+lto = "thin"
+
+[profile.release-native]
+inherits = "release"
+opt-level = 3
+lto = "fat"

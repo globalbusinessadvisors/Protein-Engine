@@ -1,0 +1,36 @@
+# Protein-Engine server node — multi-stage build
+# Stage 1: Build the Rust binary with native features
+# Stage 2: Minimal runtime image
+
+# ── Builder ───────────────────────────────────────────────────────────
+FROM rust:1.82-bookworm AS builder
+
+WORKDIR /build
+
+# Copy workspace manifests first for layer caching
+COPY Cargo.toml Cargo.lock ./
+COPY .cargo/ .cargo/
+COPY crates/ crates/
+
+# Build release binary with native feature (candle, pqcrypto, etc.)
+RUN cargo build --release --features native --bin protein-engine
+
+# ── Runtime ───────────────────────────────────────────────────────────
+FROM debian:bookworm-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home --shell /bin/false appuser
+USER appuser
+WORKDIR /home/appuser
+
+COPY --from=builder /build/target/release/protein-engine /usr/local/bin/protein-engine
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+CMD ["protein-engine", "serve", "--port", "8080"]

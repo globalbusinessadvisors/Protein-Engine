@@ -1,0 +1,30 @@
+[package]
+name        = "pe-quantum"
+version.workspace     = true
+edition.workspace     = true
+license.workspace     = true
+authors.workspace     = true
+repository.workspace  = true
+description = "Hardware-agnostic quantum backend router"
+
+[dependencies]
+pe-core         = { workspace = true }
+pe-quantum-wasm = { workspace = true }
+pe-rvf          = { workspace = true }
+serde           = { workspace = true }
+serde_json      = { workspace = true }
+thiserror       = { workspace = true }
+anyhow          = { workspace = true }
+async-trait     = { workspace = true }
+tokio           = { workspace = true }
+tracing         = { workspace = true }
+uuid            = { workspace = true }
+chrono          = { workspace = true }
+
+[dev-dependencies]
+mockall = { workspace = true }
+tokio   = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
+[features]
+default = ["native"]
+native  = []

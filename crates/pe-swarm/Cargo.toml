@@ -1,0 +1,33 @@
+[package]
+name = "pe-swarm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Multi-agent orchestration with SAFLA closed-loop design for Protein Engine"
+
+[features]
+default = ["native"]
+native = []
+
+[dependencies]
+pe-core       = { workspace = true }
+pe-neural     = { workspace = true, features = ["native"] }
+pe-vector     = { workspace = true }
+pe-quantum    = { workspace = true }
+pe-ledger     = { workspace = true, features = ["native"] }
+pe-stream     = { workspace = true }
+pe-governance = { workspace = true }
+pe-rvf        = { workspace = true }
+serde         = { workspace = true }
+serde_json    = { workspace = true }
+thiserror     = { workspace = true }
+async-trait   = { workspace = true }
+tracing       = { workspace = true }
+uuid          = { workspace = true }
+rand          = { workspace = true }
+
+[dev-dependencies]
+mockall = { workspace = true }
+tokio   = { workspace = true, features = ["macros", "rt-multi-thread"] }

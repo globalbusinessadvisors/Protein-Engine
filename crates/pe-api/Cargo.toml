@@ -1,0 +1,35 @@
+[package]
+name = "pe-api"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Axum HTTP/WebSocket API server for Protein-Engine"
+
+[dependencies]
+pe-core       = { workspace = true }
+pe-swarm      = { workspace = true }
+pe-neural     = { workspace = true, features = ["native"] }
+pe-vector     = { workspace = true }
+pe-ledger     = { workspace = true, features = ["native"] }
+pe-rvf        = { workspace = true }
+serde         = { workspace = true }
+serde_json    = { workspace = true }
+thiserror     = { workspace = true }
+async-trait   = { workspace = true }
+tokio         = { workspace = true }
+axum          = { workspace = true }
+tower         = { workspace = true }
+tower-http    = { workspace = true }
+tracing       = { workspace = true }
+uuid          = { workspace = true }
+
+[features]
+default = ["native"]
+native  = []
+
+[dev-dependencies]
+mockall     = { workspace = true }
+tokio       = { workspace = true, features = ["macros", "rt-multi-thread"] }
+http-body-util = "0.1"

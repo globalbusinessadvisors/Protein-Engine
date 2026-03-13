@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protein-Engine</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        color: #1a1a1a;
+        background: #fafafa;
+      }
+      pre {
+        background: #f0f0f0;
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      #output { white-space: pre-wrap; }
+      .status { color: #666; font-style: italic; }
+      .error { color: #c00; }
+    </style>
+  </head>
+  <body>
+    <h1>Protein-Engine</h1>
+    <p id="status" class="status">Loading WASM module…</p>
+    <pre id="output"></pre>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

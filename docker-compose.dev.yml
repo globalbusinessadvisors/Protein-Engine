@@ -1,0 +1,41 @@
+services:
+  protein-engine:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+      target: builder
+    command: >
+      cargo watch -x 'run --features native --bin protein-engine -- serve --port 8080'
+    ports:
+      - "8080:8080"
+    environment:
+      - CHEMIQ_URL=http://chemiq-sidecar:8100
+      - RUST_LOG=debug
+    volumes:
+      - ./crates:/build/crates
+      - ./Cargo.toml:/build/Cargo.toml
+      - ./Cargo.lock:/build/Cargo.lock
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/build/target
+    depends_on:
+      chemiq-sidecar:
+        condition: service_healthy
+
+  chemiq-sidecar:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.chemiq
+    command: >
+      uvicorn main:app --host 0.0.0.0 --port 8100 --reload
+    ports:
+      - "8100:8100"
+    environment:
+      - LOG_LEVEL=debug
+    volumes:
+      - ./services/chemiq-sidecar/main.py:/app/main.py
+
+volumes:
+  cargo-cache:
+    driver: local
+  target-cache:
+    driver: local

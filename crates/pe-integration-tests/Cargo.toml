@@ -1,0 +1,25 @@
+[package]
+name = "pe-integration-tests"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Cross-crate integration tests for Protein-Engine"
+publish = false
+
+[dependencies]
+
+[dev-dependencies]
+pe-core     = { workspace = true }
+pe-vector   = { workspace = true }
+pe-neural   = { workspace = true, features = ["native"] }
+pe-swarm    = { workspace = true }
+pe-quantum  = { workspace = true }
+pe-quantum-wasm = { workspace = true }
+pe-ledger   = { workspace = true, features = ["native"] }
+pe-rvf      = { workspace = true }
+
+async-trait = { workspace = true }
+chrono      = { workspace = true }
+serde_json  = { workspace = true }
+tokio       = { workspace = true }
+uuid        = { workspace = true }
